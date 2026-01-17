@@ -1,0 +1,39 @@
+// Settings
+
+// Number of all frames
+total_frames = 334;
+// The frame where the infinite loop starts
+start_loop = 155;
+// Starting frame
+index = 1;
+
+// IMAGE LOADING
+for (i = 1; i <= total_frames; i++) {
+  animacion[i] = Image("frame" + i + ".png");
+}
+
+// SPRITE CONFIGURATION
+sprite = Sprite();
+
+// Center the image on the screen
+sprite.SetX(Window.GetWidth()  / 2 - animacion[1].GetWidth()  / 2);
+sprite.SetY(Window.GetHeight() / 2 - animacion[1].GetHeight() / 2);
+
+// Execution loop (Refresh Function)
+fun refresh_callback () {
+  sprite.SetImage(animacion[Math.Int(index)]);
+  
+  if (index < start_loop) {
+   // Playback speed for the intro part
+    index += 0.5;
+  } 
+  else {
+  // Playback speed for the looping part (after intro)
+    index += 0.4;
+  }
+  
+  // Keep the animation looping from the 'start_loop' marker
+  if (index > total_frames) index = start_loop;
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);
